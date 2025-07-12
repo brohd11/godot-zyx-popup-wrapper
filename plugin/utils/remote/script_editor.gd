@@ -1,2 +1,2 @@
 #! remote
-extends "res://addons/modular_browser/lib_editor/utils/src/editor_nodes/script_editor.gd"
+extends "res://addons/addon_lib/brohd/alib_editor/utils/src/editor_nodes/script_editor.gd"
