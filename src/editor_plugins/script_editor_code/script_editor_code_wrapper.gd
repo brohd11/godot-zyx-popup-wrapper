@@ -1,16 +1,15 @@
 extends EditorContextMenuPlugin
 
 const Slot = ContextMenuSlot.CONTEXT_SLOT_SCRIPT_EDITOR_CODE
-const Utils = preload("res://addons/zyx_popup_wrapper/plugin/utils/utils.gd")
 
+const Utils = preload("res://addons/zyx_popup_wrapper/src/utils/utils.gd")
 const PopupWrapper = Utils.PopupWrapper
-
 const PopupHelper = Utils.PopupHelper
 const ScriptEd = Utils.ScriptEd
 
 const PRE_POPUP_ARRAY = [
-	"res://addons/syntax_tags/plugin/syntax_tag_context_logic.gd",
-	"res://addons/modular_browser/lib_editor/editor_plugins/context_menu/script_editor/path_uid/path_uid_logic.gd",
+	"res://addons/syntax_tags/src/editor_plugins/syntax_tag_context_logic.gd",
+	"res://addons/syntax_tags/src/editor_plugins/path_uid_context_logic.gd",
 ]
 
 var pre_popup_scripts = []
@@ -26,7 +25,6 @@ func _init() -> void:
 		pre_popup_scripts.append(script)
 
 func _popup_menu(paths: PackedStringArray) -> void:
-	print("YUP")
 	var script_editor:CodeEdit = Engine.get_main_loop().root.get_node(paths[0]);
 	#await script_editor.get_tree().process_frame
 	var script_data = {}
@@ -49,7 +47,6 @@ func _popup_menu(paths: PackedStringArray) -> void:
 	PopupWrapper.squash_icons(new_popup)
 	
 	await script_editor.get_tree().process_frame
-	
 	
 	EditorInterface.get_base_control().add_child(new_popup)
 	new_popup.position = fs_popup.position
