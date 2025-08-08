@@ -2,27 +2,16 @@ extends EditorContextMenuPlugin
 
 const Slot = ContextMenuSlot.CONTEXT_SLOT_SCRIPT_EDITOR_CODE
 
-const Utils = preload("res://addons/zyx_popup_wrapper/src/utils/utils.gd")
+const Utils = preload("res://addons/zyx_popup_wrapper/src/utils/zyx_popup_utils.gd")
 const PopupWrapper = Utils.PopupWrapper
 const PopupHelper = Utils.PopupHelper
 const ScriptEd = Utils.ScriptEd
 
-const PRE_POPUP_ARRAY = [
-	"res://addons/syntax_tags/src/editor_plugins/syntax_tag_context_logic.gd",
-	"res://addons/syntax_tags/src/editor_plugins/path_uid_context_logic.gd",
-]
+var pre_popup_scripts := []
+var post_popup_scripts := []
 
-var pre_popup_scripts = []
-
-func _init() -> void:
-	for path in PRE_POPUP_ARRAY:
-		if not FileAccess.file_exists(path):
-			continue
-		var script = load(path)
-		if not script is Script:
-			push_error("File is not script: %s" % path)
-			continue
-		pre_popup_scripts.append(script)
+func set_popup_scripts(scripts):
+	Utils.sort_popup_scripts(self, scripts)
 
 func _popup_menu(paths: PackedStringArray) -> void:
 	var script_editor:CodeEdit = Engine.get_main_loop().root.get_node(paths[0]);
@@ -43,7 +32,24 @@ func _popup_menu(paths: PackedStringArray) -> void:
 	var base_id = 5000
 	PopupHelper.parse_dict_static(script_data, new_popup, _custom_item_pressed, null, base_id, [script_editor, script_data])
 	var fs_popup = ScriptEd.get_popup()
-	PopupWrapper.popup_wrapper(new_popup, fs_popup, wrapper_pressed)
+	
+	var wrapper_params = PopupWrapper.WrapperParams.new()
+	wrapper_params.show_shortcuts = true
+	PopupWrapper.popup_wrapper(new_popup, fs_popup, wrapper_params)
+	
+	var post_script_data = {}
+	for script in post_popup_scripts:
+		var callable = script.get_callable()
+		var items:Dictionary = script.get_popup_data(script_editor)
+		if callable != null and items != null:
+			for key in items:
+				var data = items.get(key)
+				data[PopupHelper.ParamKeys.CALLABLE_KEY] = callable
+				post_script_data[key] = data
+	
+	var post_base_id = base_id + script_data.keys().size()
+	PopupHelper.parse_dict_static(post_script_data, new_popup, _custom_item_pressed, null, post_base_id, [script_editor, script_data])
+	
 	PopupWrapper.squash_icons(new_popup)
 	
 	await script_editor.get_tree().process_frame
@@ -65,8 +71,3 @@ func _custom_item_pressed(id, wrapper_popup, script_editor, script_data):
 	var callable = target_script_data.get(PopupHelper.ParamKeys.CALLABLE_KEY)
 	if callable:
 		callable.call(id, wrapper_popup, script_editor)
-
-func wrapper_pressed(id, wrapper_popup, fs_popup):
-	if id >= 5000:
-		return
-	fs_popup.id_pressed.emit(id)
