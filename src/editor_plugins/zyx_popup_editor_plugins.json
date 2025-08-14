@@ -1,8 +1,0 @@
-{
-	"code_completion":[],
-	"context_menu":[
-		"res://addons/zyx_popup_wrapper/src/editor_plugins/script_editor_code/script_editor_code_wrapper.gd",
-	],
-	"inspector":[],
-	"syntax_highlighter":[]
-}

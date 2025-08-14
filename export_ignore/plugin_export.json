@@ -1,0 +1,38 @@
+{
+	"export_root": "/home/brohd/Godot/PluginExport",
+	"exports": [
+		{
+			"exclude": {
+				"directories": [
+					"res://addons/zyx_popup_wrapper/export_ignore"
+				],
+				"file_extensions": [],
+				"files": []
+			},
+			"export_folder": "zyx-popup-wrapper{{version=zyx_popup_wrapper}}/zyx_popup_wrapper",
+			"other_transfers": [],
+			"source": "res://addons/zyx_popup_wrapper/"
+		}
+	],
+	"options": {
+		"include_import": true,
+		"include_uid": true,
+		"overwrite": true,
+		"parser_settings": {
+			"parse_cs": {
+				"namespace_rename": {
+
+				}
+			},
+			"parse_gd": {
+
+			},
+			"parse_tscn": {
+
+			}
+		}
+	},
+	"plugin_folder": "ZyxPopupWrapper/ZyxPopupWrapper{{version=zyx_popup_wrapper}}",
+	"post_script": "res://addons/zyx_popup_wrapper/export_ignore/pre_post_export.gd",
+	"pre_script": "res://addons/zyx_popup_wrapper/export_ignore/pre_post_export.gd"
+}

@@ -1,73 +1,38 @@
 extends EditorContextMenuPlugin
 
-const Slot = ContextMenuSlot.CONTEXT_SLOT_SCRIPT_EDITOR_CODE
+const SLOT = ContextMenuSlot.CONTEXT_SLOT_SCRIPT_EDITOR_CODE
 
 const Utils = preload("res://addons/zyx_popup_wrapper/src/utils/zyx_popup_utils.gd")
 const PopupWrapper = Utils.PopupWrapper
 const PopupHelper = Utils.PopupHelper
 const ScriptEd = Utils.ScriptEd
 
-var pre_popup_scripts := []
-var post_popup_scripts := []
-
-func set_popup_scripts(scripts):
-	Utils.sort_popup_scripts(self, scripts)
-
 func _popup_menu(paths: PackedStringArray) -> void:
 	var script_editor:CodeEdit = Engine.get_main_loop().root.get_node(paths[0]);
-	#await script_editor.get_tree().process_frame
-	var script_data = {}
-	for script in pre_popup_scripts:
-		var callable = script.get_callable()
-		var items:Dictionary = script.get_popup_data(script_editor)
-		if callable != null and items != null:
-			for key in items:
-				var data = items.get(key)
-				data[PopupHelper.ParamKeys.CALLABLE_KEY] = callable
-				script_data[key] = data
+	await script_editor.get_tree().process_frame
 	
 	var new_popup = PopupMenu.new()
 	new_popup.submenu_popup_delay = 0
 	new_popup.popup_hide.connect(_on_popup_hide.bind(new_popup))
-	var base_id = 5000
-	PopupHelper.parse_dict_static(script_data, new_popup, _custom_item_pressed, null, base_id, [script_editor, script_data])
+	
 	var fs_popup = ScriptEd.get_popup()
 	
 	var wrapper_params = PopupWrapper.WrapperParams.new()
 	wrapper_params.show_shortcuts = true
+	
 	PopupWrapper.popup_wrapper(new_popup, fs_popup, wrapper_params)
 	
-	var post_script_data = {}
-	for script in post_popup_scripts:
-		var callable = script.get_callable()
-		var items:Dictionary = script.get_popup_data(script_editor)
-		if callable != null and items != null:
-			for key in items:
-				var data = items.get(key)
-				data[PopupHelper.ParamKeys.CALLABLE_KEY] = callable
-				post_script_data[key] = data
-	
-	var post_base_id = base_id + script_data.keys().size()
-	PopupHelper.parse_dict_static(post_script_data, new_popup, _custom_item_pressed, null, post_base_id, [script_editor, script_data])
-	
 	PopupWrapper.squash_icons(new_popup)
+	PopupWrapper.popup_cleanup(new_popup)
 	
-	await script_editor.get_tree().process_frame
-	
+	#await script_editor.get_tree().process_frame
 	EditorInterface.get_base_control().add_child(new_popup)
 	new_popup.position = fs_popup.position
 	
 	fs_popup.hide()
 	new_popup.show()
+	#new_popup.popup()
+
 
 func _on_popup_hide(popup):
 	popup.queue_free()
-
-func _custom_item_pressed(id, wrapper_popup, script_editor, script_data):
-	if id < 5000:
-		return
-	var menu_path = PopupHelper.parse_menu_path(id, wrapper_popup)
-	var target_script_data = script_data.get(menu_path)
-	var callable = target_script_data.get(PopupHelper.ParamKeys.CALLABLE_KEY)
-	if callable:
-		callable.call(id, wrapper_popup, script_editor)
