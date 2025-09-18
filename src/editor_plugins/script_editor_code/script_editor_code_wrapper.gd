@@ -9,6 +9,7 @@ const ScriptEd = Utils.ScriptEd
 
 func _popup_menu(paths: PackedStringArray) -> void:
 	var script_editor:CodeEdit = Engine.get_main_loop().root.get_node(paths[0]);
+	
 	await script_editor.get_tree().process_frame
 	
 	var new_popup = PopupMenu.new()

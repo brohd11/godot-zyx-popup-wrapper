@@ -1,4 +1,4 @@
-#! remote res://addons/zyx_popup_wrapper/src/utils/remote/
+#! remote
 
 const EditorPluginManager = preload("res://addons/addon_lib/brohd/editor_plugin_manager/editor_plugin_manager.gd")
 const PopupWrapper = preload("res://addons/addon_lib/brohd/popup_wrapper/popup_wrapper.gd")
