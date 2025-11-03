@@ -95,7 +95,9 @@ static func wrap_popup(fs_popup, wrapper_params) -> void:
 	PopupWrapper.squash_icons(new_popup)
 	PopupWrapper.popup_cleanup(new_popup)
 	
-	EditorInterface.get_base_control().add_child(new_popup)
+	var fs_par = fs_popup.get_parent()
+	#EditorInterface.get_base_control().add_child(new_popup)
+	fs_par.add_child(new_popup)
 	new_popup.position = fs_popup.position
 	fs_popup.hide()
 	new_popup.show()
