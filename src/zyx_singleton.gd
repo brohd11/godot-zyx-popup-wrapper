@@ -1,7 +1,7 @@
 class_name ZyxPopupWrapper #! singleton-module
 extends Singleton.RefCount
 
-const SCRIPT = preload("res://addons/zyx_popup_wrapper/src/zyx_singleton.gd")
+const PE_STRIP_CAST_SCRIPT = preload("res://addons/zyx_popup_wrapper/src/zyx_singleton.gd")
 
 const Context2DEditor = preload("res://addons/zyx_popup_wrapper/src/editor_plugins/2d_editor/2d_editor.gd")
 const ContextFilesystem = preload("res://addons/zyx_popup_wrapper/src/editor_plugins/filesystem/filesystem.gd")
@@ -15,17 +15,17 @@ static func get_singleton_name():
 	return "ZyxPopupWrapper"
 
 static func register_plugin(plugin:EditorPlugin):
-	_register_node(SCRIPT, plugin)
+	_register_node(PE_STRIP_CAST_SCRIPT, plugin)
 
 
 static func get_instance() -> ZyxPopupWrapper:
-	return _get_instance(SCRIPT)
+	return _get_instance(PE_STRIP_CAST_SCRIPT)
 
 static func instance_valid():
-	return _instance_valid(SCRIPT)
+	return _instance_valid(PE_STRIP_CAST_SCRIPT)
 
 static func call_on_ready(callable:Callable):
-	_call_on_ready(SCRIPT, callable)
+	_call_on_ready(PE_STRIP_CAST_SCRIPT, callable)
 
 
 func _init(plugin) -> void:
