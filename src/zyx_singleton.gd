@@ -1,5 +1,6 @@
 class_name ZyxPopupWrapper #! singleton-module
-extends Singleton.RefCount
+extends SingletonRefCount
+const SingletonRefCount = Singleton.RefCount
 
 const PE_STRIP_CAST_SCRIPT = preload("res://addons/zyx_popup_wrapper/src/zyx_singleton.gd")
 
