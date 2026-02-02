@@ -91,13 +91,11 @@ static func wrap_popup(fs_popup, wrapper_params) -> void:
 	new_popup.submenu_popup_delay = 0
 	new_popup.popup_hide.connect(_on_popup_hide.bind(new_popup))
 	
-	#print(fs_popup, " wrap, singleton")
 	PopupWrapper.popup_wrapper(new_popup, fs_popup, wrapper_params)
 	PopupWrapper.squash_icons(new_popup)
 	PopupWrapper.popup_cleanup(new_popup)
 	
 	var fs_par = fs_popup.get_parent()
-	#EditorInterface.get_base_control().add_child(new_popup)
 	fs_par.add_child(new_popup)
 	new_popup.position = fs_popup.position
 	fs_popup.hide()
@@ -108,25 +106,25 @@ static func _on_popup_hide(popup):
 
 
 class Enable:
-	static func editor_2d(enabled:bool, printerr:=true):
-		if _check_ins(printerr): ZyxPopupWrapper.get_instance().context_2d_editor.enabled = enabled
-	static func filesystem(enabled:bool, printerr:=true):
-		if _check_ins(printerr): ZyxPopupWrapper.get_instance().context_filesystem.enabled = enabled
-	static func filesystem_create(enabled:bool, printerr:=true):
-		if _check_ins(printerr): ZyxPopupWrapper.get_instance().context_filesystem_create.enabled = enabled
-	static func scene_tabs(enabled:bool, printerr:=true):
-		if _check_ins(printerr): ZyxPopupWrapper.get_instance().context_scene_tabs.enabled = enabled
-	static func scene_tree(enabled:bool, printerr:=true):
-		if _check_ins(printerr): ZyxPopupWrapper.get_instance().context_scene_tree.enabled = enabled
-	static func script_editor(enabled:bool, printerr:=true):
-		if _check_ins(printerr): ZyxPopupWrapper.get_instance().context_script_editor.enabled = enabled
-	static func script_editor_code(enabled:bool, printerr:=true):
-		if _check_ins(printerr): ZyxPopupWrapper.get_instance().context_script_editor_code.enabled = enabled
+	static func editor_2d(enabled:bool, print_err:=true):
+		if _check_ins(print_err): ZyxPopupWrapper.get_instance().context_2d_editor.enabled = enabled
+	static func filesystem(enabled:bool, print_err:=true):
+		if _check_ins(print_err): ZyxPopupWrapper.get_instance().context_filesystem.enabled = enabled
+	static func filesystem_create(enabled:bool, print_err:=true):
+		if _check_ins(print_err): ZyxPopupWrapper.get_instance().context_filesystem_create.enabled = enabled
+	static func scene_tabs(enabled:bool, print_err:=true):
+		if _check_ins(print_err): ZyxPopupWrapper.get_instance().context_scene_tabs.enabled = enabled
+	static func scene_tree(enabled:bool, print_err:=true):
+		if _check_ins(print_err): ZyxPopupWrapper.get_instance().context_scene_tree.enabled = enabled
+	static func script_editor(enabled:bool, print_err:=true):
+		if _check_ins(print_err): ZyxPopupWrapper.get_instance().context_script_editor.enabled = enabled
+	static func script_editor_code(enabled:bool, print_err:=true):
+		if _check_ins(print_err): ZyxPopupWrapper.get_instance().context_script_editor_code.enabled = enabled
 	
-	static func _check_ins(printerr):
+	static func _check_ins(print_err):
 		if ZyxPopupWrapper.instance_valid():
 			return true
 		else:
-			if printerr:
+			if print_err:
 				printerr("ZyxPopupWrapper instance not valid. Check that a plugin has been registered.")
 			return false
