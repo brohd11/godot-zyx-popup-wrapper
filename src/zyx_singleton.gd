@@ -1,4 +1,4 @@
-class_name ZyxPopupWrapper #! singleton-module
+class_name ZyxPopupWrapperSingleton
 extends SingletonRefCount
 const SingletonRefCount = Singleton.RefCount
 
@@ -13,13 +13,16 @@ const ContextScriptEditor = preload("res://addons/zyx_popup_wrapper/src/editor_p
 const ContextScriptEditorCode = preload("res://addons/zyx_popup_wrapper/src/editor_plugins/script_editor_code/script_editor_code.gd")
 
 static func get_singleton_name():
-	return "ZyxPopupWrapper"
+	return "ZyxPopupWrapperSingleton"
 
-static func register_plugin(plugin:EditorPlugin):
-	_register_node(SELF, plugin)
+static func register_node(node):
+	_register_node(SELF, node)
+
+static func unregister_node(node):
+	_unregister_node(SELF, node)
 
 
-static func get_instance() -> ZyxPopupWrapper:
+static func get_instance() -> ZyxPopupWrapperSingleton:
 	return _get_instance(SELF)
 
 static func instance_valid():
@@ -108,28 +111,28 @@ static func _on_popup_hide(popup):
 class Enable:
 	static func editor_2d(enabled:bool, print_err:=true):
 		if _check_ins(print_err):
-			ZyxPopupWrapper.get_instance().context_2d_editor.enabled = enabled
+			ZyxPopupWrapperSingleton.get_instance().context_2d_editor.enabled = enabled
 	static func filesystem(enabled:bool, print_err:=true):
 		if _check_ins(print_err):
-			ZyxPopupWrapper.get_instance().context_filesystem.enabled = enabled
+			ZyxPopupWrapperSingleton.get_instance().context_filesystem.enabled = enabled
 	static func filesystem_create(enabled:bool, print_err:=true):
 		if _check_ins(print_err):
-			ZyxPopupWrapper.get_instance().context_filesystem_create.enabled = enabled
+			ZyxPopupWrapperSingleton.get_instance().context_filesystem_create.enabled = enabled
 	static func scene_tabs(enabled:bool, print_err:=true):
 		if _check_ins(print_err):
-			ZyxPopupWrapper.get_instance().context_scene_tabs.enabled = enabled
+			ZyxPopupWrapperSingleton.get_instance().context_scene_tabs.enabled = enabled
 	static func scene_tree(enabled:bool, print_err:=true):
 		if _check_ins(print_err):
-			ZyxPopupWrapper.get_instance().context_scene_tree.enabled = enabled
+			ZyxPopupWrapperSingleton.get_instance().context_scene_tree.enabled = enabled
 	static func script_editor(enabled:bool, print_err:=true):
 		if _check_ins(print_err):
-			ZyxPopupWrapper.get_instance().context_script_editor.enabled = enabled
+			ZyxPopupWrapperSingleton.get_instance().context_script_editor.enabled = enabled
 	static func script_editor_code(enabled:bool, print_err:=true):
 		if _check_ins(print_err):
-			ZyxPopupWrapper.get_instance().context_script_editor_code.enabled = enabled
+			ZyxPopupWrapperSingleton.get_instance().context_script_editor_code.enabled = enabled
 	
 	static func _check_ins(print_err):
-		if ZyxPopupWrapper.instance_valid():
+		if ZyxPopupWrapperSingleton.instance_valid():
 			return true
 		else:
 			if print_err:

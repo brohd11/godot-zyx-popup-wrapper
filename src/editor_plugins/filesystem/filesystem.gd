@@ -17,4 +17,4 @@ func _popup_menu(paths: PackedStringArray) -> void:
 	var wrapper_params = PopupWrapper.WrapperParams.new()
 	wrapper_params.show_shortcuts = true
 	
-	ZyxPopupWrapper.wrap_popup(actual_popup, wrapper_params)
+	ZyxPopupWrapperSingleton.wrap_popup(actual_popup, wrapper_params)
