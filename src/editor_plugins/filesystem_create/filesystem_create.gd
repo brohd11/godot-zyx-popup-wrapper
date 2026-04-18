@@ -3,7 +3,7 @@ extends EditorContextMenuPlugin
 var enabled:bool = true
 
 func _popup_menu(paths: PackedStringArray) -> void:
-	return # this clashes with filesystem slot
+	return #^r this clashes with filesystem slot
 	
 	await Engine.get_main_loop().root.get_tree().process_frame
 	if not enabled:

@@ -6,7 +6,10 @@ func _popup_menu(paths: PackedStringArray) -> void:
 	await Engine.get_main_loop().root.get_tree().process_frame
 	if not enabled:
 		return
-	
+	_deferred_popup_menu()
+	#_deferred_popup_menu.call_deferred() # simple defer is not working with filesystem instance plugin
+
+func _deferred_popup_menu():
 	var fs_popup = EditorNodeRef.get_node_ref(EditorNodeRef.Nodes.FILESYSTEM_POPUP) as PopupMenu
 	var fs_bottom_popup = EditorNodeRef.get_node_ref(EditorNodeRef.Nodes.FILESYSTEM_BOTTOM_POPUP) as PopupMenu
 	

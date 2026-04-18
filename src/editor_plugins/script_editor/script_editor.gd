@@ -3,10 +3,12 @@ extends EditorContextMenuPlugin
 var enabled:bool = true
 
 func _popup_menu(paths: PackedStringArray) -> void:
-	await Engine.get_main_loop().root.get_tree().process_frame
+	#await Engine.get_main_loop().root.get_tree().process_frame
 	if not enabled:
 		return
-	
+	_deferred_popup_menu.call_deferred()
+
+func _deferred_popup_menu():
 	var fs_popup = EditorNodeRef.get_registered(EditorNodeRef.Nodes.SCRIPT_EDITOR_POPUP)
 	
 	var wrapper_params = PopupWrapper.WrapperParams.new()
