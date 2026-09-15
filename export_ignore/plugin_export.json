@@ -9,7 +9,8 @@
 				"file_extensions": [],
 				"files": []
 			},
-			"export_folder": "zyx-popup-wrapper{{version=zyx_popup_wrapper}}/zyx_popup_wrapper",
+			"export_name": "zyx-popup-wrapper{{version=zyx_popup_wrapper}}",
+			"export_folder": "addons/zyx_popup_wrapper",
 			"other_transfers": [],
 			"source": "res://addons/zyx_popup_wrapper/"
 		}

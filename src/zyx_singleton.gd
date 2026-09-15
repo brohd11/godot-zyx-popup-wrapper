@@ -1,5 +1,5 @@
 class_name ZyxPopupWrapperSingleton
-extends "res://addons/addon_lib/brohd/singleton/singleton_ref_count.gd" #! ext Singletons.RefCount
+extends "res://addons/addon_lib/singleton/singleton_ref_count.gd" #! ext Singletons.RefCount
 
 const SELF = preload("res://addons/zyx_popup_wrapper/src/zyx_singleton.gd")
 
