@@ -2,7 +2,7 @@
 extends EditorPlugin
 
 func _enter_tree() -> void:
-	ZyxPopupWrapperSingleton.register_node(self)
+	PopupWrapperSingleton.register_node(self)
 
 func _exit_tree() -> void:
-	ZyxPopupWrapperSingleton.unregister_node(self)
+	PopupWrapperSingleton.unregister_node(self)
