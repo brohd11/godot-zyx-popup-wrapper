@@ -30,6 +30,6 @@
 		}
 	},
 	"plugin_folder": "ZyxPopupWrapper/ZyxPopupWrapper{{version=zyx_popup_wrapper}}",
-	"post_script": "res://addons/zyx_popup_wrapper/export_ignore/pre_post_export.gd",
-	"pre_script": "res://addons/zyx_popup_wrapper/export_ignore/pre_post_export.gd"
+	"post_script": "",
+	"pre_script": ""
 }
