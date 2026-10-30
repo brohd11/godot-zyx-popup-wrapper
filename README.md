@@ -1,20 +1,20 @@
-# Popup Wrapper for Godot Editor
+# ZyxPopupWrapper
 
-This plugin allows you to create context menu plugins more easily, as well as change where they appear in the popup.
+This is a thin wrapper of [popup-wrapper](https://github.com/brohd11/godot-popup-wrapper.git), a library that recreates the editor's
+popups, allowing to re-order where items appear.
 
-By default, all context menu plugins will be brought to the top of the popup, allowing quicker selection.
+This repo serves as a plugin to instance the wrapper singleton in the case there is no plugin using it.
 
-Currently, only the script editor code menu is implemented. Others will be done as I start to need them.
+## Install
 
-I am not sure if I will do the file system menu, because I am already doing a wrapper of it in another plugin, I will need to determine compatibility.
+This plugin uses external dependencies packaged with [Package Exporter](https://github.com/brohd11/godot-package-exporter.git),
+download the latest package from releases, it includes the required dependencies.
+The "require" key in plugin.cfg|addon.cfg lists all dependency repos.
 
-## Example of Creating Context Menu Plugins
+You can also use [gdaddon](https://github.com/brohd11/gdaddon) to manage the installation.
+It is a TUI package/repo manager that can install and update addons for you.
 
-
-
-
-##
-
-
-
-Some code is missing from this repository due to how I package my plugins. Missing code can be found here: [Addon-Lib](https://github.com/brohd11/Godot-Addon-Lib)
+In your project:
+```
+gdaddon install brohd11/godot-zyx-popup-wrapper/release
+```
