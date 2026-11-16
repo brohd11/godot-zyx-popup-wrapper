@@ -34,15 +34,3 @@ exports:
     source: "res://addons/zyx_popup_wrapper"
     export_name: "zyx-popup-wrapper{{version=res://addons/zyx_popup_wrapper}}"
     export_folder: addons/zyx_popup_wrapper
-    exclude:
-      directories:
-        - "res://addons/zyx_popup_wrapper/_export_ignore"
-      file_extensions: []
-      files: []
-    other_transfers: []
-    parser_overide_settings:
-      parse_cs: {}
-      parse_gd: {}
-      parse_tscn: {}
-      parse_tres: {}
-    remote_dir: "res://addons/zyx_popup_wrapper/src/remote"
